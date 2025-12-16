@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 00000000000000000000000000000000
+  productGUID: 1411c4deffac47c4ab374a015a191f1f
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -890,7 +890,7 @@ PlayerSettings:
   cloudProjectId: 9d22ec2c-faac-43aa-946d-22a3ae859602
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 2d-game-match3
+  projectName: Project_Puzzle 2025-12-15_17-59-04
   organizationId: uena0506
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
