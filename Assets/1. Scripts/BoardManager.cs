@@ -8,7 +8,7 @@ public class BoardManager : MonoBehaviour
 
     public Gem[,] board = new Gem[Width, Height];
 
-    public Gem gemPrefeb;
+    public Gem[] gemPrefabs;
 
     private void Start()
     {
@@ -31,7 +31,10 @@ public class BoardManager : MonoBehaviour
 
     void SpawnGem(int x, int y)
     {
-        Gem gem = Instantiate(gemPrefeb);
+        int randomIndex = UnityEngine.Random.Range(0, gemPrefabs.Length);
+        Gem prefab = gemPrefabs[randomIndex];
+
+        Gem gem = Instantiate(prefab);
         gem.transform.position = Cell(x, y);
         board[x, y] = gem;
     }
