@@ -389,9 +389,7 @@ MonoBehaviour:
   gemPrefabs:
   - {fileID: -5685938782663692867, guid: 6abfaa5bed1ffa948af3c2d2eca6d050, type: 3}
   - {fileID: 1028089059458834938, guid: 9024b0815dc6fad44a0b114b4dac4992, type: 3}
-  - {fileID: 3480053496423296788, guid: 715e62371e3327b48a942f1dabe58119, type: 3}
   - {fileID: 5738854287987299407, guid: 480d99b5e5099fe4683dadee1971a008, type: 3}
-  - {fileID: 9007064485056712909, guid: 4d0873a08aa6023409f5dfaad130c010, type: 3}
   - {fileID: 2414548702029304592, guid: a609fe760f4bd5f428c94ac65013a537, type: 3}
 --- !u!1 &1008922007
 GameObject:
@@ -507,6 +505,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1031845445
 TilemapRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -552,6 +551,7 @@ TilemapRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -559,7 +559,6 @@ TilemapRenderer:
   m_SortOrder: 0
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
-  m_MaskInteraction: 0
 --- !u!1839735485 &1031845446
 Tilemap:
   m_ObjectHideFlags: 0
@@ -1342,6 +1341,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1813803537
 TilemapRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1387,6 +1387,7 @@ TilemapRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -1394,7 +1395,6 @@ TilemapRenderer:
   m_SortOrder: 0
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
-  m_MaskInteraction: 0
 --- !u!1839735485 &1813803538
 Tilemap:
   m_ObjectHideFlags: 0
