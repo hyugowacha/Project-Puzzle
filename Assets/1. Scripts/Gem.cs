@@ -1,8 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum GemType
+{
+    Blue, Green, Pink, Yellow
+}
+
 public class Gem : MonoBehaviour
 {
+    public GemType GemType;
+
     private void OnMouseDown()
     {
         Debug.Log($"Clicked: {transform.position.x}, {transform.position.y}");
