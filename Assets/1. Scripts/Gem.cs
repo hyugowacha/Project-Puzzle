@@ -8,7 +8,7 @@ public enum GemType
 
 public class Gem : MonoBehaviour
 {
-    public GemType GemType;
+    public GemType type;
 
     private void OnMouseDown()
     {
