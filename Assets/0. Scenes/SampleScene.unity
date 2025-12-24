@@ -119,6 +119,39 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &498582248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 498582249}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &498582249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498582248}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1031845444}
+  - {fileID: 1813803536}
+  m_Father: {fileID: 793848244}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +382,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 793848244}
-  - component: {fileID: 793848245}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -370,28 +402,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1813803536}
-  - {fileID: 1031845444}
+  - {fileID: 498582249}
   m_Father: {fileID: 1636980995}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &793848245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793848243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe728739c06a94048a02b39a4521b16b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BoardManager
-  gemPrefabs:
-  - {fileID: -5685938782663692867, guid: 6abfaa5bed1ffa948af3c2d2eca6d050, type: 3}
-  - {fileID: 1028089059458834938, guid: 9024b0815dc6fad44a0b114b4dac4992, type: 3}
-  - {fileID: 5738854287987299407, guid: 480d99b5e5099fe4683dadee1971a008, type: 3}
-  - {fileID: 2414548702029304592, guid: a609fe760f4bd5f428c94ac65013a537, type: 3}
-  - {fileID: 2580945398242609668, guid: b8edc1fe3bb01c44883276517b146e58, type: 3}
 --- !u!1 &1008922007
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 793848244}
+  m_Father: {fileID: 498582249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1031845445
 TilemapRenderer:
@@ -1262,6 +1275,57 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1321892557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1321892558}
+  - component: {fileID: 1321892559}
+  m_Layer: 0
+  m_Name: BoardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1321892558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321892557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1937279324}
+  m_Father: {fileID: 1636980995}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1321892559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321892557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe728739c06a94048a02b39a4521b16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoardManager
+  gemPrefabs:
+  - {fileID: -5685938782663692867, guid: 6abfaa5bed1ffa948af3c2d2eca6d050, type: 3}
+  - {fileID: 1028089059458834938, guid: 9024b0815dc6fad44a0b114b4dac4992, type: 3}
+  - {fileID: 5738854287987299407, guid: 480d99b5e5099fe4683dadee1971a008, type: 3}
+  - {fileID: 2414548702029304592, guid: a609fe760f4bd5f428c94ac65013a537, type: 3}
+  - {fileID: 2580945398242609668, guid: b8edc1fe3bb01c44883276517b146e58, type: 3}
 --- !u!1 &1636980993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,6 +1369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 793848244}
+  - {fileID: 1321892558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1813803535
@@ -1338,7 +1403,7 @@ Transform:
   m_LocalScale: {x: 1.031436, y: 1.031436, z: 1.031436}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 793848244}
+  m_Father: {fileID: 498582249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1813803537
 TilemapRenderer:
@@ -1766,6 +1831,50 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1937279323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1937279324}
+  - component: {fileID: 1937279325}
+  m_Layer: 0
+  m_Name: GemSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1937279324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937279323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1321892558}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1937279325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937279323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab108160d08b7042a2adf9d076fd5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GemSpawner
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

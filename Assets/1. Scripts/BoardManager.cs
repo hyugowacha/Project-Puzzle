@@ -79,7 +79,7 @@ public class BoardManager : MonoBehaviour
 
     int PickSafe(GemType? banH, GemType? banV)
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 20; i++)
         {
             int index = UnityEngine.Random.Range(0,gemPrefabs.Length);
             GemType t = gemPrefabs[index].type;
