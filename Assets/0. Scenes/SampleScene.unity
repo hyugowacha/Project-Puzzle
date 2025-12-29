@@ -1326,6 +1326,7 @@ MonoBehaviour:
   - {fileID: 5738854287987299407, guid: 480d99b5e5099fe4683dadee1971a008, type: 3}
   - {fileID: 2414548702029304592, guid: a609fe760f4bd5f428c94ac65013a537, type: 3}
   - {fileID: 2580945398242609668, guid: b8edc1fe3bb01c44883276517b146e58, type: 3}
+  spawner: {fileID: 1937279325}
 --- !u!1 &1636980993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,6 +1876,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab108160d08b7042a2adf9d076fd5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GemSpawner
+  board: {fileID: 1321892559}
+  gemPrefabs:
+  - {fileID: -5685938782663692867, guid: 6abfaa5bed1ffa948af3c2d2eca6d050, type: 3}
+  - {fileID: 1028089059458834938, guid: 9024b0815dc6fad44a0b114b4dac4992, type: 3}
+  - {fileID: 5738854287987299407, guid: 480d99b5e5099fe4683dadee1971a008, type: 3}
+  - {fileID: 2580945398242609668, guid: b8edc1fe3bb01c44883276517b146e58, type: 3}
+  - {fileID: 2414548702029304592, guid: a609fe760f4bd5f428c94ac65013a537, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
