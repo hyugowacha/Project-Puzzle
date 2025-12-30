@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c01db8c0a2bf64a81cfdd53c48b917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gem
-  type: 4
+  type: 3
 --- !u!61 &7272241687624881454
 BoxCollider2D:
   m_ObjectHideFlags: 0

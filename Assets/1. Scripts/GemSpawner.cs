@@ -4,6 +4,8 @@ public class GemSpawner : MonoBehaviour
 {
     [SerializeField] private BoardManager board;
     [SerializeField] private Gem[] gemPrefabs;
+    [SerializeField] private GemPool pool;
+
     private int maxTry = 20;
 
     public void FillBoard(int width, int height)
@@ -23,10 +25,16 @@ public class GemSpawner : MonoBehaviour
         GemType? banV = BanVertical(x, y);
 
         int index = PickSafe(banH, banV);
+        GemType type = gemPrefabs[index].type;
 
-        Gem gem = Instantiate(gemPrefabs[index]);
+        Gem gem = pool.Get(type);
         gem.transform.position = board.Cell(x, y);
         board.gemBoard[x, y] = gem;
+    }
+
+    public void DespawnGem(Gem gem)
+    {
+        pool.Release(gem);
     }
 
     GemType? BanHorizon(int x, int y)

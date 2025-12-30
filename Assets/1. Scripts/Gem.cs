@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public enum GemType
 {
-    Blue, Green, Pink, Yellow, Purple
+    Blue, Green, Pink, SkyBlue, Yellow
 }
 
 public class Gem : MonoBehaviour
