@@ -29,7 +29,7 @@ public class InputController : MonoBehaviour
             if(delta.magnitude > 0.3f)
             {
                 Vector2Int dir = GetDir(delta);
-                //swap
+                swapController.RequestSwap(selectedGem, dir);
                 selectedGem = null;
             }
         }

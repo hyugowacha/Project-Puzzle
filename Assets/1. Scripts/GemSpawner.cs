@@ -6,7 +6,7 @@ public class GemSpawner : MonoBehaviour
     [SerializeField] private Gem[] gemPrefabs;
     [SerializeField] private GemPool pool;
 
-    private int maxTry = 20;
+    //private int maxTry = 20;
 
     public void FillBoard(int width, int height)
     {
@@ -28,7 +28,9 @@ public class GemSpawner : MonoBehaviour
         GemType type = gemPrefabs[index].type;
 
         Gem gem = pool.Get(type);
-        gem.transform.position = board.Cell(x, y);
+        Vector3 pos = board.Cell(x, y);
+        gem.SetCell(x, y, pos);
+
         board.gemBoard[x, y] = gem;
     }
 
