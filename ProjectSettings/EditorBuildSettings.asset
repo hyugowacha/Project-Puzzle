@@ -20,5 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GemHunterMatch/Scenes/Level3.unity
     guid: 6f8636eea4fd4465593f170e96739fcc
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 67730f0f67f5ac540b1280256e245d0a, type: 3}
   m_UseUCBPForAssetBundles: 0

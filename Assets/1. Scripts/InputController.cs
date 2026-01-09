@@ -1,50 +1,72 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class InputController : MonoBehaviour
 {
-    [SerializeField] Camera cam;
-    [SerializeField] SwapController swapController;
+    [SerializeField] private Camera cam;
+    [SerializeField] private SwapController swapController;
 
-    Gem selectedGem;
-    Vector3 startPos;
+    private PlayerContoller inputActions;
+    private Gem selectedGem;
+    private Vector3 startPos;
+    private bool isPressed;
 
-    void Update()
+    private void Awake()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        inputActions = new PlayerContoller();
+    }
+
+    private void Start()
+    {
+        inputActions.Player.Enable();
+
+        inputActions.Player.TouchPress.started += OnTouchStart;
+        inputActions.Player.TouchPress.canceled += OnTouchEnd;
+    }
+
+    private void Update()
+    {
+        if(isPressed && selectedGem != null)
         {
-            RaycastHit2D hit = Physics2D.Raycast(WorldPos(), Vector2.zero);
+            Vector3 currentPos = GetWorldPos();
+            Vector3 nowPos = currentPos - startPos;
 
-            if (hit.collider != null)
+            if(nowPos.magnitude > 0.3f)
             {
-                selectedGem = hit.collider.GetComponent<Gem>();
-                startPos = WorldPos();
-            }
-        }
-
-        if (Mouse.current.leftButton.isPressed && selectedGem != null)
-        {
-            Vector3 delta = WorldPos() - startPos;
-
-            if(delta.magnitude > 0.3f)
-            {
-                Vector2Int dir = GetDir(delta);
+                Vector2Int dir = GetDir(nowPos);
                 swapController.RequestSwap(selectedGem, dir);
                 selectedGem = null;
+                isPressed = false;  
             }
         }
+    }
 
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
+    private void OnTouchStart(InputAction.CallbackContext ctx)
+    {
+        isPressed = true;
+        Vector3 worldPos = GetWorldPos();
+        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+
+        if(hit.collider != null)
         {
-            selectedGem = null;
+            selectedGem = hit.collider.GetComponent<Gem>();
+            startPos = worldPos;
         }
     }
 
-    Vector3 WorldPos()
+    private void OnTouchEnd(InputAction.CallbackContext ctx)
     {
-        Vector2 pos = Mouse.current.position.ReadValue();
-        return cam.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 0));
+        isPressed = false;
+        selectedGem = null;
     }
+
+    private Vector3 GetWorldPos()
+    {
+        Vector2 screenPos = inputActions.Player.TouchPosition.ReadValue<Vector2>();
+        return cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
+    }
+
 
     Vector2Int GetDir(Vector3 dir)
     {
