@@ -1,63 +1,71 @@
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
-public enum SwapResult
-{
-    Success, OutOfBounds, NotNeighbor, NoMatch
-}
+
 
 public class BoardManager : MonoBehaviour
 {
-    public const int Width = 8;
-    public const int Height = 8;
-
-    public Gem[,] gemBoard = new Gem[Width, Height];
-
-    public Gem[] gemPrefabs;
+    public Gem[,] gemBoard = new Gem[BoardUtility.Width, BoardUtility.Height];
 
     [SerializeField] private GemSpawner spawner;
 
+    private MatchChecker matchChecker;
+    public bool IsLocked { get; private set; }
+
+    private void Awake()
+    {
+        matchChecker = new MatchChecker(this);
+    }
+
     private void Start()
     {
-        spawner.FillBoard(Width, Height);
+        spawner.FillBoard();
+    }
+
+    public void RequestSwap(Gem gem, Vector2Int dir)
+    {
+        if (IsLocked) return;
+
+        Vector2Int a = new Vector2Int(gem.x, gem.y);
+        Vector2Int b = a + dir;
+
+        SwapResult result = TrySwap(a, b);
+
+        if (result == SwapResult.Success)
+        {
+            Debug.Log($"스왑 성공: {a} → {b}");
+        }
+        else
+        {
+            Debug.Log($"스왑 실패: {result}");
+        }
     }
 
     public SwapResult TrySwap(Vector2Int a, Vector2Int b)
     {
-        if (!InBounds(a.x, a.y) || !InBounds(b.x, b.y)) 
+        if (!BoardUtility.InBounds(a.x, a.y) || !BoardUtility.InBounds(b.x, b.y))
         {
             return SwapResult.OutOfBounds;
         }
 
-        if(!AreNeighbors(a, b))
+        if (!BoardUtility.AreNeighbors(a, b))
         {
             return SwapResult.NotNeighbor;
         }
 
         SwapCells(a, b);
 
-        bool matched = HasMatchAt(a.x, a.y) || HasMatchAt(b.x, b.y);
+        bool matched = matchChecker.HasMatchAt(a.x, a.y) || matchChecker.HasMatchAt(b.x, b.y);
 
         if (!matched)
         {
-            SwapCells(a, b);
+            SwapCells(a, b); // 롤백
             return SwapResult.NoMatch;
         }
 
         return SwapResult.Success;
     }
 
-    public bool InBounds(int x, int y)
-    {
-        return x >= 0 && x < Width && y >= 0 && y < Height;
-    }
-
-    public bool AreNeighbors(Vector2Int a, Vector2Int b)
-    {
-        int dx = Mathf.Abs(a.x - b.x);
-        int dy = Mathf.Abs (a.y - b.y);
-        return (dx + dy == 1);
-    }
 
     public void SwapCells(Vector2Int a, Vector2Int b)
     {
@@ -67,64 +75,38 @@ public class BoardManager : MonoBehaviour
         gemBoard[a.x, a.y] = gemB;
         gemBoard[b.x, b.y] = gemA;
 
-        if(gemA != null)
+        if (gemA != null)
         {
-            gemA.SetCell(b.x, b.y, Cell(b.x, b.y));
+            gemA.SetCell(b.x, b.y, BoardUtility.GetCellWorldPos(b.x, b.y));
         }
 
-        if(gemB != null)
+        if (gemB != null)
         {
-            gemB.SetCell(a.x, a.y, Cell(a.x, a.y));
+            gemB.SetCell(a.x, a.y, BoardUtility.GetCellWorldPos(a.x, a.y));
         }
     }
 
-    public bool HasMatchAt(int x, int y)
+    public GemType? GetBanTypeHorizontal(int x, int y)
     {
-        if (!InBounds(x, y)) return false;
+        if (x < 2) return null;
 
-        Gem gem = gemBoard[x, y];
-        if(gem == null) return false;
+        Gem a = gemBoard[x - 1, y];
+        Gem b = gemBoard[x - 2, y];
 
-        GemType type = gem.type;
+        if (a == null || b == null) return null;
 
-        int i = 1;
-
-        i += CountSame(x, y, -1, 0, type);
-        i += CountSame(x, y, 1, 0, type);
-        if (i >= 3) return true;
-
-        int j = 1;
-
-        j += CountSame(x, y, 0, -1, type);
-        j += CountSame(x, y, 0, 1, type);
-        return j >= 3;
+        return a.type == b.type ? a.type : null;
     }
-
-    public int CountSame(int x, int y, int dx, int dy, GemType type)
+    public GemType? GetBanTypeVertical(int x, int y)
     {
-        int count = 0;
-        int nx = x + dx;
-        int ny = y + dy;    
+        if (y < 2) return null;
 
-        while(InBounds(nx, ny))
-        {
-            Gem ng = gemBoard[nx, ny];
-            if (ng == null || ng.type != type) break;
+        Gem a = gemBoard[x, y - 1];
+        Gem b = gemBoard[x, y - 2];
 
-            count++;
-            nx += dx;
-            ny += dy;
-        }
+        if (a == null || b == null) return null;
 
-        return count;
-    }
-
-    public Vector3 Cell(int x, int y)
-    {
-        return new Vector3
-        (
-            x - 4 + 0.5f, y - 4 + 0.5f, 0f
-        );
+        return a.type == b.type ? a.type : null;
     }
 
 

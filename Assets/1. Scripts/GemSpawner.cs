@@ -6,80 +6,47 @@ public class GemSpawner : MonoBehaviour
     [SerializeField] private Gem[] gemPrefabs;
     [SerializeField] private GemPool pool;
 
-    //private int maxTry = 20;
 
-    public void FillBoard(int width, int height)
+    public void FillBoard()
     {
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < BoardUtility.Width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < BoardUtility.Height; y++)
             {
                 SpawnGem(x, y);
             }
         }
     }
 
-    void SpawnGem(int x, int y)
+    public void SpawnGem(int x, int y)
     {
-        GemType? banH = BanHorizon(x, y);
-        GemType? banV = BanVertical(x, y);
+        GemType? banH = board.GetBanTypeHorizontal(x, y);
+        GemType? banV = board.GetBanTypeVertical(x, y);
 
-        int index = PickSafe(banH, banV);
-        GemType type = gemPrefabs[index].type;
-
-        Gem gem = pool.Get(type);
-        Vector3 pos = board.Cell(x, y);
-        gem.SetCell(x, y, pos);
+        GemType type = SelectRandomType(banH, banV);
+        Gem gem = CreateGem(type, x, y);
 
         board.gemBoard[x, y] = gem;
     }
-
-    public void DespawnGem(Gem gem)
+    private Gem CreateGem(GemType type, int x, int y)
     {
-        pool.Release(gem);
+        Gem gem = pool.Get(type);
+        Vector3 pos = BoardUtility.GetCellWorldPos(x, y);
+        gem.SetCell(x, y, pos);
+        return gem;
     }
 
-    GemType? BanHorizon(int x, int y)
+    private GemType SelectRandomType(GemType? banH, GemType? banV)
     {
-        if (x < 2)
-        {
-            return null;
-        }
-
-        var a = board.gemBoard[x - 1, y];
-        var b = board.gemBoard[x - 2, y];
-
-        if (a == null || b == null)
-        {
-            return null;
-        }
-
-        return a.type == b.type ? a.type : null;
+        int index = PickSafe(banH, banV);
+        return gemPrefabs[index].type;
     }
 
-    GemType? BanVertical(int x, int y)
-    {
-        if (y < 2)
-        {
-            return null;
-        }
-
-        var a = board.gemBoard[x, y - 1];
-        var b = board.gemBoard[x, y - 2];
-
-        if (a == null || b == null)
-        {
-            return null;
-        }
-
-        return a.type == b.type ? a.type : null;
-    }
-
-    int PickSafe(GemType? banH, GemType? banV)
+    private int PickSafe(GemType? banH, GemType? banV)
     {
         for (int i = 0; i < 20; i++)
         {
-            int index = UnityEngine.Random.Range(0, gemPrefabs.Length);
+            int index = Random.Range(0, gemPrefabs.Length);
             GemType t = gemPrefabs[index].type;
 
             if (t == banH) continue;
@@ -88,7 +55,11 @@ public class GemSpawner : MonoBehaviour
             return index;
         }
 
-        return UnityEngine.Random.Range(0, gemPrefabs.Length);
+        return Random.Range(0, gemPrefabs.Length);
     }
 
+    public void DespawnGem(Gem gem)
+    {
+        pool.Release(gem);
+    }
 }

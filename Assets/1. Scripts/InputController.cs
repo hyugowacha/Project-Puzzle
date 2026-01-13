@@ -5,12 +5,13 @@ using UnityEngine.InputSystem.Controls;
 public class InputController : MonoBehaviour
 {
     [SerializeField] private Camera cam;
-    [SerializeField] private SwapController swapController;
+    [SerializeField] private GemSelector gemSelector;
 
     private PlayerContoller inputActions;
-    private Gem selectedGem;
-    private Vector3 startPos;
-    private bool isPressed;
+    private Vector2 startScreenPos;
+    private bool isDragging;
+
+    private const float DRAG_THRESHOLD_PIXELS = 30f;
 
     private void Awake()
     {
@@ -27,57 +28,49 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
-        if(isPressed && selectedGem != null)
+        if (isDragging && gemSelector.HasSelection)
         {
-            Vector3 currentPos = GetWorldPos();
-            Vector3 nowPos = currentPos - startPos;
+            Vector2 currentScreenPos = inputActions.Player.TouchPosition.ReadValue<Vector2>();
+            Vector2 delta = currentScreenPos - startScreenPos;
 
-            if(nowPos.magnitude > 0.3f)
+            if (delta.magnitude > DRAG_THRESHOLD_PIXELS)
             {
-                Vector2Int dir = GetDir(nowPos);
-                swapController.RequestSwap(selectedGem, dir);
-                selectedGem = null;
-                isPressed = false;  
+                SwipeDirection direction = GetSwipeDir(delta);
+                gemSelector.RequestSwap(direction);
+                isDragging = false;
             }
         }
     }
 
     private void OnTouchStart(InputAction.CallbackContext ctx)
     {
-        isPressed = true;
-        Vector3 worldPos = GetWorldPos();
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-
-        if(hit.collider != null)
-        {
-            selectedGem = hit.collider.GetComponent<Gem>();
-            startPos = worldPos;
-        }
+        startScreenPos = inputActions.Player.TouchPosition.ReadValue<Vector2>();
+        Vector3 worldPos = GetWorldPos(startScreenPos);
+        gemSelector.TrySelectGem(worldPos);
+        isDragging = true;
     }
 
     private void OnTouchEnd(InputAction.CallbackContext ctx)
     {
-        isPressed = false;
-        selectedGem = null;
+        isDragging = false;
+        gemSelector.ClearSelection();
     }
 
-    private Vector3 GetWorldPos()
+    private Vector3 GetWorldPos(Vector2 screenPos)
     {
-        Vector2 screenPos = inputActions.Player.TouchPosition.ReadValue<Vector2>();
         return cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
     }
 
 
-    Vector2Int GetDir(Vector3 dir)
+    private SwipeDirection GetSwipeDir(Vector2 delta)
     {
-        if(Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+        if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
         {
-            return dir.x > 0? Vector2Int.right : Vector2Int.left;
+            return delta.x > 0 ? SwipeDirection.Right : SwipeDirection.Left;
         }
-
         else
         {
-            return dir.y > 0 ? Vector2Int.up : Vector2Int.down;
+            return delta.y > 0 ? SwipeDirection.Up : SwipeDirection.Down;
         }
     }
 }
