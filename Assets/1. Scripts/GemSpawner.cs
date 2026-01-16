@@ -13,26 +13,39 @@ public class GemSpawner : MonoBehaviour
         {
             for (int y = 0; y < BoardUtility.Height; y++)
             {
-                SpawnGem(x, y);
+                SpawnGem(x, y, false);
             }
         }
     }
 
-    public void SpawnGem(int x, int y)
+    public void SpawnGem(int x, int y, bool dropFromTop = false)
     {
         GemType? banH = board.GetBanTypeHorizontal(x, y);
         GemType? banV = board.GetBanTypeVertical(x, y);
 
         GemType type = SelectRandomType(banH, banV);
-        Gem gem = CreateGem(type, x, y);
+        Gem gem = CreateGem(type, x, y, dropFromTop);
 
         board.gemBoard[x, y] = gem;
     }
-    private Gem CreateGem(GemType type, int x, int y)
+    private Gem CreateGem(GemType type, int x, int y, bool dropFromTop)
     {
         Gem gem = pool.Get(type);
         Vector3 pos = BoardUtility.GetCellWorldPos(x, y);
-        gem.SetCell(x, y, pos);
+
+        if(dropFromTop == true)
+        {
+            Vector3 spawnPos = BoardUtility.GetCellWorldPos(x, BoardUtility.Height);
+            gem.transform.position = spawnPos;
+            gem.SetCell(x, y, pos);
+        }
+
+        else
+        {
+            gem.transform.position = pos;
+            gem.SetCell(x, y, pos);
+        }
+
         return gem;
     }
 
