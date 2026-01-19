@@ -116,7 +116,7 @@ public class BoardManager : MonoBehaviour
 
             yield return StartCoroutine(FillEmptyCell());
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
         }
 
         IsLocked = false;
@@ -222,7 +222,7 @@ public class BoardManager : MonoBehaviour
 
         if (gemsDropped)
         {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -244,7 +244,7 @@ public class BoardManager : MonoBehaviour
 
         if (gemsFilled)
         {
-            yield return new WaitForSeconds(0.3f); // 생성 애니메이션 대기
+            yield return new WaitForSeconds(0.1f); // 생성 애니메이션 대기
         }
     }
 

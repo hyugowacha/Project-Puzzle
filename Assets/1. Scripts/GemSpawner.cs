@@ -35,7 +35,7 @@ public class GemSpawner : MonoBehaviour
 
         if(dropFromTop == true)
         {
-            Vector3 spawnPos = BoardUtility.GetCellWorldPos(x, BoardUtility.Height);
+            Vector3 spawnPos = BoardUtility.GetCellWorldPos(x, y + 1);
             gem.transform.position = spawnPos;
             gem.SetCell(x, y, pos);
         }
