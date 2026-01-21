@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b60d54988a19f42429620bd8abcb3b11
+guid: f764e30c8d5e8c74b977cb407346848b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8942011146000743964
-    second: Button_Square_White_250px_0
+      213: 7538553405221213583
+    second: candy-jar (1)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_Square_White_250px_0
+      name: candy-jar (1)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 250
-        height: 250
+        width: 475
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1e35fea2c7681c70800000000000000
-      internalID: 8942011146000743964
+      spriteID: f85958e81625e9860800000000000000
+      internalID: 7538553405221213583
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Button_Square_White_250px_0: 8942011146000743964
+      candy-jar (1)_0: 7538553405221213583
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
