@@ -56,5 +56,11 @@ TagManager:
   - name: BoardFrame
     uniqueID: 1366124991
     locked: 0
+  - name: UI_BackGround
+    uniqueID: 610084613
+    locked: 0
+  - name: UI_Deco
+    uniqueID: 2046717893
+    locked: 0
   m_RenderingLayers:
   - Default
