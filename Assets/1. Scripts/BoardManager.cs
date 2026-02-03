@@ -10,6 +10,8 @@ public class BoardManager : MonoBehaviour
     public Gem[,] gemBoard = new Gem[BoardUtility.Width, BoardUtility.Height];
 
     [SerializeField] private GemSpawner spawner;
+    [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private ParticleSystem popEffect;
 
     private MatchChecker matchChecker;
     public bool IsLocked { get; private set; }
@@ -35,12 +37,12 @@ public class BoardManager : MonoBehaviour
 
         if (result == SwapResult.Success)
         {
-            Debug.Log($"스왑 성공: {a} → {b}");
+            //Debug.Log($"스왑 성공: {a} → {b}");
             StartCoroutine(MatchProcess());
         }
         else
         {
-            Debug.Log($"스왑 실패: {result}");
+            //Debug.Log($"스왑 실패: {result}");
         }
     }
 
@@ -62,11 +64,18 @@ public class BoardManager : MonoBehaviour
 
         if (!matched)
         {
-            SwapCells(a, b); // 롤백
+            StartCoroutine(NotSwapAnimation(a, b));
             return SwapResult.NoMatch;
         }
 
         return SwapResult.Success;
+    }
+
+    private IEnumerator NotSwapAnimation(Vector2Int a, Vector2Int b)
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        SwapCells(a, b);
     }
 
 
@@ -107,8 +116,12 @@ public class BoardManager : MonoBehaviour
                 break;
             }
 
-            Debug.Log($"매치 수:  {matchGem.Count}");
+            Debug.Log($"매치 수: {matchGem.Count}");
+
+
             yield return new WaitForSeconds(0.15f);
+
+            scoreManager.AddScore(matchGem.Count);
 
             yield return StartCoroutine(DestroyGem(matchGem));
 
@@ -186,6 +199,10 @@ public class BoardManager : MonoBehaviour
         {
             if (gem != null)
             {
+                Vector3 effectPos = gem.transform.position;
+                effectPos.z = -3f;
+
+                Instantiate(popEffect, effectPos, Quaternion.identity);
                 gemBoard[gem.x, gem.y] = null;
                 spawner.DespawnGem(gem);
             }

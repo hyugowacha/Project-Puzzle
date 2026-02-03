@@ -12,8 +12,8 @@ TagManager:
   - Water
   - UI
   - Portrait
-  - 
-  - 
+  - Gem
+  - Effect
   - 
   - 
   - 
@@ -44,23 +44,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Gems
-    uniqueID: 1890678711
-    locked: 0
   - name: Character
     uniqueID: 3183144165
     locked: 0
   - name: VFX
     uniqueID: 666422525
     locked: 0
-  - name: BoardFrame
-    uniqueID: 1366124991
-    locked: 0
   - name: UI_BackGround
     uniqueID: 610084613
     locked: 0
   - name: UI_Deco
     uniqueID: 2046717893
+    locked: 0
+  - name: BoardFrame
+    uniqueID: 1366124991
+    locked: 0
+  - name: Effect
+    uniqueID: 1890678711
     locked: 0
   m_RenderingLayers:
   - Default
