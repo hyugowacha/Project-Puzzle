@@ -12,6 +12,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GemSpawner spawner;
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private ParticleSystem popEffect;
+    [SerializeField] private ScoreUI scoreUI;
 
     private MatchChecker matchChecker;
     public bool IsLocked { get; private set; }
@@ -28,6 +29,11 @@ public class BoardManager : MonoBehaviour
 
     public void RequestSwap(Gem gem, Vector2Int dir)
     {
+        if(GameManager.gameManager != null && !GameManager.gameManager.isGamePlaying)
+        {
+            return; //플레이 시작 전 스왑 금지
+        }
+
         if (IsLocked) return;
 
         Vector2Int a = new Vector2Int(gem.x, gem.y);
@@ -105,6 +111,7 @@ public class BoardManager : MonoBehaviour
         IsLocked = true;
 
         bool hasMatch = true;
+        int comboCount = 0;
 
         while (hasMatch)
         {
@@ -116,12 +123,19 @@ public class BoardManager : MonoBehaviour
                 break;
             }
 
-            Debug.Log($"매치 수: {matchGem.Count}");
+            comboCount++;
 
+            Debug.Log($"매치 수: {matchGem.Count} 콤보 수: {comboCount}");
+
+            scoreManager.SetCombo(comboCount);
 
             yield return new WaitForSeconds(0.15f);
 
-            scoreManager.AddScore(matchGem.Count);
+            scoreManager.AddScore(matchGem.Count, comboCount);
+
+            scoreManager.AddFeverGage(matchGem.Count);
+
+            scoreUI.ScoreAnimation(comboCount);
 
             yield return StartCoroutine(DestroyGem(matchGem));
 
@@ -131,6 +145,8 @@ public class BoardManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+
+        scoreManager.SetCombo(0);
 
         IsLocked = false;
     }
