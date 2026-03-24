@@ -5,6 +5,9 @@ public static class BoardUtility
     public const int Width = 8;
     public const int Height = 8;
 
+    const float cellOffset = 0.5f;
+    const float boardHalf = BoardUtility.Width / 2f;
+
     public static bool InBounds(int x, int y)
     {
         return x >= 0 && x < Width && y >= 0 && y < Height;
@@ -19,6 +22,8 @@ public static class BoardUtility
 
     public static Vector3 GetCellWorldPos(int x, int y)
     {
-        return new Vector3(x - 4 + 0.5f, y - 4 + 0.5f, 0f);
+        return new Vector3(
+            x - boardHalf + cellOffset,
+            y - boardHalf + cellOffset, 0f);
     }
 }

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager scoreManager;
+
     [Header("기본 점수 세팅")]
     [SerializeField] private int baseScore = 100; //기본점수
     [SerializeField] private int comboBonus = 50; //콤보 보너스
@@ -13,19 +15,33 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Animator feverTextAnim;
 
 
-    private int currentScore = 0;
+    public int currentScore = 0;
     [HideInInspector] public int currentCombo = 0;
 
     [HideInInspector] public float feverGage = 0;
     public bool isFever = false;
     private float feverTimer = 0f;
 
+    private void Awake()
+    {
+        if(scoreManager == null)
+        {
+            scoreManager = this;
+        }
+
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Update()
     {
         if (isFever)
         {
             feverTimer -= Time.deltaTime;
-            feverGage = Mathf.Lerp(0, maxFeverGage, feverTimer / feverDuraction);
+            feverGage = Mathf.Lerp(0, maxFeverGage, feverTimer 
+                / feverDuraction);
 
             if (feverTimer <= 0)
             {
@@ -57,7 +73,7 @@ public class ScoreManager : MonoBehaviour
 
         feverGage += gemCount;
 
-        if(feverGage >= maxFeverGage)
+        if (feverGage >= maxFeverGage)
         {
             feverGage = maxFeverGage;
             StartFever();
@@ -68,10 +84,12 @@ public class ScoreManager : MonoBehaviour
     {
         isFever = true;
         feverTimer = feverDuraction;
-        feverGage = 0;
+        feverGage = maxFeverGage;
 
         feverTextAnim.SetTrigger("StartFever");
-        Debug.Log("피버타임 시작");
+
+        GameStatistics.gameStatistics.AddFeverCount();
+        //Debug.Log("피버타임 시작");
     }
 
     private void EndFever()
@@ -79,7 +97,7 @@ public class ScoreManager : MonoBehaviour
         isFever = false;
         feverTimer = 0;
 
-        Debug.Log("피버타임 종료");
+        //Debug.Log("피버타임 종료");
     }
 
     public int GetScore()
@@ -92,10 +110,4 @@ public class ScoreManager : MonoBehaviour
         currentCombo = combo;
     }
 
-
-    //public void ResetScore()
-    //{
-    //    currentScore = 0;
-    //    currentCombo = 0;
-    //}
 }

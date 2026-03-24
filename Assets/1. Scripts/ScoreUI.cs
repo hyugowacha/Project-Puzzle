@@ -22,7 +22,7 @@ public class ScoreUI : MonoBehaviour
     private void Update()
     {
         int score = scoreManager.GetScore();
-        scoreText.text = score.ToString("D8");
+        scoreText.text = score.ToString("D6");
 
         UpdateFeverGage();
         UpdateFeverTime();

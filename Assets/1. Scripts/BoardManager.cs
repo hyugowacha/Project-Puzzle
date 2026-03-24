@@ -125,9 +125,12 @@ public class BoardManager : MonoBehaviour
 
             comboCount++;
 
-            Debug.Log($"매치 수: {matchGem.Count} 콤보 수: {comboCount}");
+            //Debug.Log($"매치 수: {matchGem.Count} 콤보 수: {comboCount}");
 
             scoreManager.SetCombo(comboCount);
+
+            GameStatistics.gameStatistics.AddGems(matchGem.Count);
+            GameStatistics.gameStatistics.UpdateMaxCombo(comboCount);
 
             yield return new WaitForSeconds(0.15f);
 

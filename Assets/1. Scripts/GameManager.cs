@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -99,5 +100,45 @@ public class GameManager : MonoBehaviour
         gameoverText.SetActive(true);
 
         Debug.Log("타임 오버");
+
+        SaveResult();
+        StartCoroutine(LoadScoreScene());
+    }
+
+    private void SaveResult()
+    {
+        if (DataManager.dataManager == null)
+        {
+            Debug.LogError(" DataManager null");
+            return;
+        }
+
+        if (ScoreManager.scoreManager == null) 
+        {
+            Debug.LogError("ScoreManager null");
+            return;
+        }
+
+        if (GameStatistics.gameStatistics == null)
+        {
+            Debug.LogError(" GameStatistics null");
+            return;
+        }
+
+        int score = ScoreManager.scoreManager.currentScore;
+        int combo = GameStatistics.gameStatistics.maxCombo;
+        int fever = GameStatistics.gameStatistics.feverCount;
+        int gems = GameStatistics.gameStatistics.totalGems;
+
+        DataManager.dataManager.SaveResult(score, combo, fever, gems);
+
+        Debug.Log("데이터 저장 완료");
+        
+    }
+
+    private IEnumerator LoadScoreScene()
+    {
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("ScoreScene");
     }
 }

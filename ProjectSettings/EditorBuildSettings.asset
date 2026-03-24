@@ -5,21 +5,30 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/GemHunterMatch/Scenes/Init.unity
     guid: 88a5acb1125ee1842a754c83a50ea6a0
-  - enabled: 1
+  - enabled: 0
     path: Assets/GemHunterMatch/Scenes/Main.unity
     guid: b348bab4d0bcc4249974860e9b60da73
-  - enabled: 1
+  - enabled: 0
     path: Assets/0. Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/GemHunterMatch/Scenes/Level2.unity
     guid: cef0a6256b6cc41a2b9c230466e59854
-  - enabled: 1
+  - enabled: 0
     path: Assets/GemHunterMatch/Scenes/Level3.unity
     guid: 6f8636eea4fd4465593f170e96739fcc
+  - enabled: 1
+    path: Assets/0. Scenes/TitleScene.unity
+    guid: bfe733ff1b1746f4c8e93de8929e1144
+  - enabled: 1
+    path: Assets/0. Scenes/IngameScene.unity
+    guid: ea7c91400d8e9b346affd3c057b09a91
+  - enabled: 1
+    path: Assets/0. Scenes/ScoreScene.unity
+    guid: 27b4db622520f3042913a831f4a33a16
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 67730f0f67f5ac540b1280256e245d0a, type: 3}
   m_UseUCBPForAssetBundles: 0
